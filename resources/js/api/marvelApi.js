@@ -1,5 +1,6 @@
 export default class MarvelAPI {
   state = {
+    percentageOfRareComics: 10,
     mandatoryFilters: {
       orderBy: '-issueNumber'
     },
@@ -10,11 +11,32 @@ export default class MarvelAPI {
     return Object.entries(obj).map(([key, val]) => `${key}=${encodeURI(val)}`).join('&')
   }
 
+  generateRares (data, count) {
+    const totalOfRares = Math.floor((this.state.percentageOfRareComics * count) / 100)
+    const indexOfRare = []
+
+    while (true) {
+      const random = Math.floor(Math.random() * data.length)
+      if (!indexOfRare.find(n => n === random)) {
+        indexOfRare.push(random)
+      }
+      if (indexOfRare.length >= totalOfRares) {
+        return data.map((comic, index) => {
+          if (indexOfRare.includes(index)) {
+            comic.rareIssue = true
+          }
+          return comic
+        })
+      }
+    }
+  }
+
   parseResults (request) {
     return new Promise(resolve => {
       request.then(
         response => response.json().then(data => {
           const search = data.data
+          search.results = this.generateRares(search.results, search.count)
           resolve(search)
         })
       )
