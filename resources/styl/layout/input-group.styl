@@ -1,0 +1,20 @@
+.l-input-group
+  display flex
+  flex-direction column
+  margin-bottom $m-size
+  margin-top $s-size
+
+  @media (min-width $desktop-breakpoint)
+    flex-direction row
+    margin-bottom $l-size
+
+  &__item
+    display flex
+    margin-left 10px
+
+    > input
+      width 100%
+
+    &:first-child
+      flex-grow 1
+      margin-left 0
