@@ -118,7 +118,7 @@ class ComicListPage extends React.Component {
   }
   render () {
     return (
-      <div>
+      <div className='l-content-container'>
         <ComicListFilterForm
           isFetching={this.state.isFetching}
           hasFilterText={this.state.filter.text}
