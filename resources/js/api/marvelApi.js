@@ -1,25 +1,37 @@
 export default class MarvelAPI {
-  constructor () {
-    this.requestData()
+  state = {
+    mandatoryFilters: {
+      orderBy: '-issueNumber'
+    },
+    requestList: []
+  }
+
+  serialize (obj) {
+    return Object.entries(obj).map(([key, val]) => `${key}=${encodeURI(val)}`).join('&')
   }
 
   parseResults (request) {
-    this.requestResults = new Promise(resolve => {
+    return new Promise(resolve => {
       request.then(
         response => response.json().then(data => {
-          const comics = data.data.results
-          resolve(comics)
+          const search = data.data
+          resolve(search)
         })
       )
     })
   }
 
-  requestData () {
-    const myRequest = new Request('https://gateway.marvel.com/v1/public/comics?dateDescriptor=lastWeek&apikey=11eccfa59c07a22aff04caca647aa978')
-    this.parseResults(fetch(myRequest))
-  }
+  getComics (filters = {}) {
+    const params = this.serialize({...filters, ...this.state.mandatoryFilters})
+    const request = new Request(`https://gateway.marvel.com/v1/public/comics?apikey=11eccfa59c07a22aff04caca647aa978&${params}`)
+    const existingRequest = this.state.requestList.find(item => item.params === params)
 
-  getResults () {
-    return this.requestResults
+    if (existingRequest) {
+      return existingRequest.promise
+    } else {
+      const newRegister = this.parseResults(fetch(request))
+      this.state.requestList.push({ params, promise: newRegister })
+      return newRegister
+    }
   }
 }
