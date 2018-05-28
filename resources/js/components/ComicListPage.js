@@ -17,7 +17,7 @@ class ComicListPage extends React.Component {
       total: 0,
       limit: 20,
       minimal: {
-        dateDescriptor: 'lastWeek'
+        dateDescriptor: 'thisWeek'
       }
     }
   }
@@ -45,7 +45,7 @@ class ComicListPage extends React.Component {
   onSubmitFilterForm = (e) => {
     e.preventDefault()
     const title = e.target.querySelector('#title-input').value
-    const validParam = title.length > 0 ? { title } : undefined
+    const validParam = title.length > 0 ? { title } : this.state.filter.minimal
 
     this.setState(prevState => ({
       ...prevState,
@@ -68,7 +68,7 @@ class ComicListPage extends React.Component {
   }
   onClearFilterForm = (e) => {
     e.preventDefault()
-    const titleElem = e.target.parentNode.querySelector('#title-input')
+    const titleElem = e.target.closest('form').querySelector('#title-input')
     titleElem.value = ''
 
     marvelApi.getComics(this.state.filter.minimal).then(search => {
