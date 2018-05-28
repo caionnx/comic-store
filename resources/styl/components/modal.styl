@@ -1,0 +1,48 @@
+.ReactModal__Body--open
+  overflow hidden
+
+  @media (min-width $desktop-breakpoint)
+    padding-right 17px
+
+.ReactModalPortal
+  > div
+    transition opacity 200ms ease-in-out
+
+  .ReactModal__Overlay
+    align-items center
+    display flex
+    justify-content center
+    opacity 0
+
+  .ReactModal__Overlay--after-open
+    opacity 1
+
+  .ReactModal__Overlay--before-close
+    opacity 0
+
+.c-modal
+  background $dark-grey
+  border 1px solid $grey
+  max-width 50rem
+  max-height 100%
+  overflow scroll
+  outline none
+  padding $l-size
+  text-align center
+
+  @media (min-width $desktop-breakpoint)
+    overflow initial
+
+  &__body
+    font-size $m-size
+    font-weight 300
+    margin 0 0 $l-size 0
+
+  &__title
+    font-size $l-size
+    margin-bottom $s-size
+    margin-top 0
+
+  &__options
+    display flex
+    justify-content space-around
