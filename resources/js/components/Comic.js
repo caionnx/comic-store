@@ -12,12 +12,13 @@ class Comic extends React.Component {
     const priceValue = price ? price.price : false
 
     return (
-      <div>
-        <h3>{this.props.comic.title}{this.props.comic.rareIssue && ' RARE!'}</h3>
+      <div className={`c-comic-list__item ${this.props.comic.rareIssue ? 'is-rare' : ''}`}>
         { imagePath && imageExtension &&
-          <img src={`${imagePath}/${this.state.imageFormat}.${imageExtension}`} />
+          <img
+            title={this.props.comic.title}
+            src={`${imagePath}/${this.state.imageFormat}.${imageExtension}`} />
         }
-        { priceValue && <span>${priceValue}</span> }
+        { priceValue && <div>${priceValue}</div> }
       </div>
     )
   }
