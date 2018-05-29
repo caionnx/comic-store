@@ -1,0 +1,23 @@
+@keyframes loading
+  to
+    transform rotate(360deg)
+
+.c-loading
+  height 20px
+  position relative
+  text-indent -9999px
+
+  &:before
+    animation loading .6s linear infinite
+    border 3px solid #fff
+    border-radius 50%
+    border-top-color $red
+    box-sizing border-box
+    content ''
+    height 20px
+    left 50%
+    margin-left -10px
+    margin-top -10px
+    position absolute
+    top 50%
+    width 20px
