@@ -6,11 +6,11 @@ const ComicListFilterForm = props => (
       <input className='c-input' type='text' id='title-input' placeholder='Insert comic title' />
     </div>
     <div className='l-input-group__item'>
-      <button className='c-button' disabled={props.isFetching}>Search</button>
+      <button className='c-button c-button--full-width' disabled={props.isFetching}>Search</button>
     </div>
     { props.hasFilterText &&
       <div className='l-input-group__item'>
-        <button className='c-button' onClick={props.onClear}>Clear</button>
+        <button className='c-button c-button--full-width' onClick={props.onClear}>Clear</button>
       </div>
     }
   </form>
