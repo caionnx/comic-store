@@ -11,7 +11,8 @@ class Comic extends React.Component {
     this.setState({ showModal: true })
   }
 
-  handleCloseModal = () => {
+  handleCloseModal = (ev) => {
+    ev.stopPropagation()
     this.setState({ showModal: false })
   }
 
@@ -29,10 +30,9 @@ class Comic extends React.Component {
     const url = this.props.comic.urls[0] ? this.props.comic.urls[0].url : 'http://marvel.com/comics/'
 
     return (
-      <div className={`c-comic-list__item ${this.props.comic.rareIssue ? 'is-rare' : ''}`}>
+      <div tabIndex='0' onKeyPress={this.handleOpenModal} onClick={this.handleOpenModal} className={`c-comic-list__item ${this.props.comic.rareIssue ? 'is-rare' : ''}`}>
         { imagePath && imageExtension &&
           <img
-            onClick={this.handleOpenModal}
             title={this.props.comic.title}
             src={`${imagePath}/${this.state.imageFormat}.${imageExtension}`} />
         }
