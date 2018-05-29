@@ -1,6 +1,7 @@
 import React from 'react'
 import ComicList from './ComicList'
 import ComicListFilterForm from './ComicListFilterForm'
+import Loading from './Loading'
 import MarvelAPI from '../api/marvelApi'
 
 const marvelApi = new MarvelAPI()
@@ -125,7 +126,7 @@ class ComicListPage extends React.Component {
           onSubmit={(e) => this.onSubmitFilterForm(e)}
           onClear={(e) => this.onClearFilterForm(e)} />
 
-        { this.state.isFetching && <p>Loading...</p> }
+        { this.state.isFetching && <Loading /> }
 
         { !this.state.comics.length &&
           !this.state.isFetching &&
@@ -140,10 +141,13 @@ class ComicListPage extends React.Component {
         { this.state.filter.count + this.state.filter.offset < this.state.filter.total &&
           !this.state.isFetchingMoreOf &&
           !this.state.isFetching &&
-          <p onClick={this.onLoadMore}>Load more</p>
+          <button className='c-button c-button--primary c-button--full-width' onClick={this.onLoadMore}>Load more</button>
         }
 
-        { this.state.isFetchingMoreOf && !this.state.filter.isFetching && <p>Loading more results...</p>}
+        { this.state.isFetchingMoreOf &&
+          !this.state.filter.isFetching &&
+          <Loading />
+        }
 
       </div>
     )
