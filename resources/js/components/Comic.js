@@ -22,18 +22,24 @@ class Comic extends React.Component {
   }
 
   render () {
-    const image = this.props.comic.images[0]
-    const imagePath = image ? image.path : false
-    const imageExtension = image ? image.extension : false
-    const price = this.props.comic.prices[0]
-    const priceValue = price ? price.price : false
-    const url = this.props.comic.urls[0] ? this.props.comic.urls[0].url : 'http://marvel.com/comics/'
+    const {
+      images,
+      prices,
+      urls,
+      description,
+      title,
+      rareIssue
+    } = this.props.comic
+    const imagePath = images && images[0] ? images[0].path : false
+    const imageExtension = images[0] && images[0] ? images[0].extension : false
+    const priceValue = prices && prices[0] ? prices[0].price : false
+    const url = urls && urls[0] ? urls[0].url : 'http://marvel.com/comics/'
 
     return (
-      <div tabIndex='0' onKeyPress={this.handleOpenModal} onClick={this.handleOpenModal} className={`c-comic-list__item ${this.props.comic.rareIssue ? 'is-rare' : ''}`}>
+      <div tabIndex='0' onKeyPress={this.handleOpenModal} onClick={this.handleOpenModal} className={`c-comic-list__item ${rareIssue ? 'is-rare' : ''}`}>
         { imagePath && imageExtension &&
           <img
-            title={this.props.comic.title}
+            title={title}
             src={`${imagePath}/${this.state.imageFormat}.${imageExtension}`} />
         }
         { priceValue && <div>${priceValue}</div> }
@@ -44,11 +50,11 @@ class Comic extends React.Component {
           onRequestClose={this.handleCloseModal}
           appElement={document.getElementById('app')}
           closeTimeoutMS={200}
-          contentLabel={`Info about ${this.props.comic.title}`}>
+          contentLabel={`Info about ${title}`}>
 
           <div className='c-modal__body'>
-            <h2 className='c-modal__title'>{this.props.comic.title}</h2>
-            <p>{this.limitCharacters(this.props.comic.description)}</p>
+            <h2 className='c-modal__title'>{title}</h2>
+            <p>{this.limitCharacters(description)}</p>
             <div className='c-modal__options'>
               <a href={url} target='_blank' className='c-button'>More info</a>
               <button className='c-button' onClick={this.handleCloseModal}>Close</button>
