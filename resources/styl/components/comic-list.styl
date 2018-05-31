@@ -9,6 +9,16 @@
   @media (min-width $desktop-breakpoint)
     justify-content space-between
 
+    &--rows
+      .c-comic-list__item
+        flex 1 0 20%
+        display flex
+
+      .c-comic-list__item-container
+        float left
+        padding-left 20px
+        text-align left
+
   &__item
     background-color $dark-grey
     border 1px solid
@@ -25,6 +35,9 @@
         opacity 1
         transform scale(1.13, 1.12)
         transition all .2s ease-in
+
+    &-title
+      margin-top 0
 
   &__item.is-rare
     border-color $yellow
