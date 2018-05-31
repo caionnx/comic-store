@@ -2,7 +2,10 @@ export default class MarvelAPI {
   state = {
     percentageOfRareComics: 10,
     mandatoryFilters: {
-      orderBy: '-issueNumber'
+      orderBy: '-issueNumber',
+      format: 'comic',
+      formatType: 'comic',
+      noVariants: 'true'
     },
     requestList: []
   }
