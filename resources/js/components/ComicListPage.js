@@ -134,7 +134,7 @@ class ComicListPage extends React.Component {
           <p>No results for '{this.state.filter.text}'</p>
         }
 
-        { !!this.state.comics.length && !this.state.isFetching &&
+        { !this.state.isFetching &&
           <ComicList comics={this.state.comics} hasFilter={this.state.filter.text} />
         }
 
