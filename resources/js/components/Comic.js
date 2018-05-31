@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactModal from 'react-modal'
+import LazyImage from './LazyImage'
 
 class Comic extends React.Component {
   state = {
@@ -41,9 +42,12 @@ class Comic extends React.Component {
         onClick={() => !this.props.toCartListView && this.handleOpenModal()}
         className={`c-comic-list__item ${rareIssue ? 'is-rare' : ''}`}>
         { validImage && validImage.path && validImage.extension &&
-          <img
+          <LazyImage
             title={title}
-            src={`${validImage.path}/${this.state.imageFormat}.${validImage.extension}`} />
+            src={`${validImage.path}/${this.state.imageFormat}.${validImage.extension}`}
+            height={150}
+            offset={50}
+            once />
         }
         <div className='c-comic-list__item-container'>
           { this.props.toCartListView && <h3 className='c-comic-list__item-title'>{title}</h3> }
