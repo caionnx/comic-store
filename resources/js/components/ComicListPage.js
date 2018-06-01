@@ -1,44 +1,26 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import ComicList from './ComicList'
 import ComicListFilterForm from './ComicListFilterForm'
 import Loading from './Loading'
-import MarvelAPI from '../api/marvelApi'
-
-const marvelApi = new MarvelAPI()
+import { setCount, setTotal, setText, setOffset } from '../actions/filter'
+import { startSetComics, startAddComics } from '../actions/comics'
 
 class ComicListPage extends React.Component {
   state = {
-    comics: [],
     isFetching: true,
-    isFetchingMoreOf: false,
-    filter: {
-      text: null,
-      count: 0,
-      offset: 0,
-      total: 0,
-      limit: 20,
-      minimal: {
-        dateDescriptor: 'thisWeek'
-      }
-    }
+    isFetchingMoreOf: false
   }
 
-  parseResults = (data) => ({
-    comics: data.results,
-    offset: parseInt(data.offset, 10),
-    count: parseInt(data.count, 10),
-    total: parseInt(data.total, 10)
-  })
-
   componentDidMount () {
-    marvelApi.getComics(this.state.filter.minimal).then(search => {
-      const { comics, offset, count, total } = this.parseResults(search)
-      const filters = { offset, count, total }
+    this.props.startSetComics(this.props.filter.minimal).then(data => {
+      const { offset, count, total } = data
+      this.props.setFilterCount(count)
+      this.props.setFilterTotal(total)
+      this.props.setFilterOffset(offset)
 
       this.setState(prevState => ({
         ...prevState,
-        comics,
-        filter: {...prevState.filter, ...filters},
         isFetching: false
       }))
     })
@@ -46,25 +28,25 @@ class ComicListPage extends React.Component {
   onSubmitFilterForm = (e) => {
     e.preventDefault()
     const title = e.target.querySelector('#title-input').value
-    const validParam = title.length > 0 ? { title } : this.state.filter.minimal
+    const validParam = title.length > 0 ? { title } : this.props.filter.minimal
 
     this.setState(prevState => ({
       ...prevState,
-      filter: { ...prevState.filter, text: title },
       isFetching: true
     }))
 
-    marvelApi.getComics(validParam).then(search => {
-      const { comics, offset, count, total } = this.parseResults(search)
-      const filters = { offset, count, total }
-      if (this.state.isFetching) {
-        this.setState(prevState => ({
-          ...prevState,
-          comics,
-          filter: {...prevState.filter, ...filters},
-          isFetching: false
-        }))
-      }
+    this.props.setFilterText(title)
+
+    this.props.startSetComics(validParam).then(data => {
+      const { offset, count, total } = data
+      this.props.setFilterCount(count)
+      this.props.setFilterTotal(total)
+      this.props.setFilterOffset(offset)
+
+      this.setState(prevState => ({
+        ...prevState,
+        isFetching: false
+      }))
     })
   }
   onClearFilterForm = (e) => {
@@ -72,49 +54,42 @@ class ComicListPage extends React.Component {
     const titleElem = e.target.closest('form').querySelector('#title-input')
     titleElem.value = ''
 
-    marvelApi.getComics(this.state.filter.minimal).then(search => {
-      const { comics, offset, count, total } = this.parseResults(search)
-      const filters = { offset, count, total }
+    this.props.setFilterText(null)
+    this.props.startSetComics(this.props.filter.minimal).then(data => {
+      const { offset, count, total } = data
 
-      this.setState(prevState => ({
-        ...prevState,
-        comics,
-        filter: {...prevState.filter, ...filters, text: null},
-        isFetching: false
-      }))
+      this.props.setFilterCount(count)
+      this.props.setFilterTotal(total)
+      this.props.setFilterOffset(offset)
     })
   }
 
   onLoadMore = (e) => {
     e.preventDefault()
-    const offset = this.state.filter.offset + this.state.filter.limit
-    const title = this.state.filter.text
+    const offset = this.props.filter.offset + this.props.filter.limit
+    const title = this.props.filter.text
     const requestParams = { offset }
     if (title && title.length > 0) {
       requestParams.title = title
     } else {
-      Object.entries(this.state.filter.minimal).forEach(([key, val]) => {
+      Object.entries(this.props.filter.minimal).forEach(([key, val]) => {
         requestParams[key] = val
       })
     }
 
     this.setState(prevState => ({
       ...prevState,
-      filter: { ...prevState.filter, offset },
       isFetchingMoreOf: true
     }))
 
-    marvelApi.getComics(requestParams).then(search => {
-      const { comics, offset, count, total } = this.parseResults(search)
-      const filters = { offset, count, total }
-      if (this.state.isFetchingMoreOf) {
-        this.setState(prevState => ({
-          ...prevState,
-          comics: [...prevState.comics, ...comics],
-          filter: {...prevState.filter, ...filters},
-          isFetchingMoreOf: false
-        }))
-      }
+    this.props.startAddComics(requestParams).then(data => {
+      const { offset } = data
+      this.props.setFilterOffset(offset)
+
+      this.setState(prevState => ({
+        ...prevState,
+        isFetchingMoreOf: false
+      }))
     })
   }
   render () {
@@ -122,30 +97,30 @@ class ComicListPage extends React.Component {
       <div className='l-content-container'>
         <ComicListFilterForm
           isFetching={this.state.isFetching}
-          hasFilterText={this.state.filter.text}
+          hasFilterText={this.props.filter.text}
           onSubmit={(e) => this.onSubmitFilterForm(e)}
           onClear={(e) => this.onClearFilterForm(e)} />
 
         { this.state.isFetching && <Loading /> }
 
-        { !this.state.comics.length &&
+        { !this.props.comics.length &&
           !this.state.isFetching &&
-          this.state.filter.text &&
-          <p>No results for '{this.state.filter.text}'</p>
+          this.props.filter.text &&
+          <p>No results for '{this.props.filter.text}'</p>
         }
 
         { !this.state.isFetching &&
-          <ComicList comics={this.state.comics} hasFilter={this.state.filter.text} />
+          <ComicList comics={this.props.comics} hasFilter={this.props.filter.text} />
         }
 
-        { this.state.filter.count + this.state.filter.offset < this.state.filter.total &&
+        { this.props.filter.count + this.props.filter.offset < this.props.filter.total &&
           !this.state.isFetchingMoreOf &&
           !this.state.isFetching &&
           <button className='c-button c-button--primary c-button--full-width' onClick={this.onLoadMore}>Load more</button>
         }
 
         { this.state.isFetchingMoreOf &&
-          !this.state.filter.isFetching &&
+          !this.props.filter.isFetching &&
           <Loading />
         }
 
@@ -154,4 +129,18 @@ class ComicListPage extends React.Component {
   }
 }
 
-export default ComicListPage
+const mapStateToProps = (state) => ({
+  filter: state.filter,
+  comics: state.comics
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  setFilterCount: (count) => dispatch(setCount(count)),
+  setFilterTotal: (total) => dispatch(setTotal(total)),
+  setFilterText: (text) => dispatch(setText(text)),
+  setFilterOffset: (offset) => dispatch(setOffset(offset)),
+  startSetComics: (params) => dispatch(startSetComics(params)),
+  startAddComics: (params) => dispatch(startAddComics(params))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ComicListPage)
