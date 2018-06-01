@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ComicList from './ComicList'
 import ComicListFilterForm from './ComicListFilterForm'
 import Loading from './Loading'
-import { setCount, setTotal, setText, setOffset } from '../actions/filter'
+import { setCount, setTotal, setOffset } from '../actions/filter'
 import { startSetComics, startAddComics } from '../actions/comics'
 import { toggleFull, toggleParcial } from '../actions/fetching'
 
@@ -18,39 +18,6 @@ class ComicListPage extends React.Component {
       this.props.setFilterOffset(offset)
 
       this.props.toggleFetchingFull()
-    })
-  }
-
-  onSubmitFilterForm = (e) => {
-    e.preventDefault()
-    const title = e.target.querySelector('#title-input').value
-    const validParam = title.length > 0 ? { title } : this.props.filter.minimal
-
-    this.props.toggleFetchingFull()
-    this.props.setFilterText(title)
-
-    this.props.startSetComics(validParam).then(data => {
-      const { offset, count, total } = data
-      this.props.setFilterCount(count)
-      this.props.setFilterTotal(total)
-      this.props.setFilterOffset(offset)
-
-      this.props.toggleFetchingFull()
-    })
-  }
-
-  onClearFilterForm = (e) => {
-    e.preventDefault()
-    const titleElem = e.target.closest('form').querySelector('#title-input')
-    titleElem.value = ''
-
-    this.props.setFilterText(null)
-    this.props.startSetComics(this.props.filter.minimal).then(data => {
-      const { offset, count, total } = data
-
-      this.props.setFilterCount(count)
-      this.props.setFilterTotal(total)
-      this.props.setFilterOffset(offset)
     })
   }
 
@@ -80,11 +47,7 @@ class ComicListPage extends React.Component {
   render () {
     return (
       <div className='l-content-container'>
-        <ComicListFilterForm
-          isFetching={this.props.fetching.full}
-          hasFilterText={this.props.filter.text}
-          onSubmit={(e) => this.onSubmitFilterForm(e)}
-          onClear={(e) => this.onClearFilterForm(e)} />
+        <ComicListFilterForm />
 
         { this.props.fetching.full && <Loading /> }
 
@@ -123,7 +86,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   setFilterCount: (count) => dispatch(setCount(count)),
   setFilterTotal: (total) => dispatch(setTotal(total)),
-  setFilterText: (text) => dispatch(setText(text)),
   setFilterOffset: (offset) => dispatch(setOffset(offset)),
   startSetComics: (params) => dispatch(startSetComics(params)),
   startAddComics: (params) => dispatch(startAddComics(params)),
