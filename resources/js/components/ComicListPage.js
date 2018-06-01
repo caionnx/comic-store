@@ -5,36 +5,28 @@ import ComicListFilterForm from './ComicListFilterForm'
 import Loading from './Loading'
 import { setCount, setTotal, setText, setOffset } from '../actions/filter'
 import { startSetComics, startAddComics } from '../actions/comics'
+import { toggleFull, toggleParcial } from '../actions/fetching'
 
 class ComicListPage extends React.Component {
-  state = {
-    isFetching: true,
-    isFetchingMoreOf: false
-  }
-
   componentDidMount () {
+    this.props.toggleFetchingFull()
+
     this.props.startSetComics(this.props.filter.minimal).then(data => {
       const { offset, count, total } = data
       this.props.setFilterCount(count)
       this.props.setFilterTotal(total)
       this.props.setFilterOffset(offset)
 
-      this.setState(prevState => ({
-        ...prevState,
-        isFetching: false
-      }))
+      this.props.toggleFetchingFull()
     })
   }
+
   onSubmitFilterForm = (e) => {
     e.preventDefault()
     const title = e.target.querySelector('#title-input').value
     const validParam = title.length > 0 ? { title } : this.props.filter.minimal
 
-    this.setState(prevState => ({
-      ...prevState,
-      isFetching: true
-    }))
-
+    this.props.toggleFetchingFull()
     this.props.setFilterText(title)
 
     this.props.startSetComics(validParam).then(data => {
@@ -43,12 +35,10 @@ class ComicListPage extends React.Component {
       this.props.setFilterTotal(total)
       this.props.setFilterOffset(offset)
 
-      this.setState(prevState => ({
-        ...prevState,
-        isFetching: false
-      }))
+      this.props.toggleFetchingFull()
     })
   }
+
   onClearFilterForm = (e) => {
     e.preventDefault()
     const titleElem = e.target.closest('form').querySelector('#title-input')
@@ -77,49 +67,44 @@ class ComicListPage extends React.Component {
       })
     }
 
-    this.setState(prevState => ({
-      ...prevState,
-      isFetchingMoreOf: true
-    }))
+    this.props.toggleFetchingParcial()
 
     this.props.startAddComics(requestParams).then(data => {
       const { offset } = data
-      this.props.setFilterOffset(offset)
 
-      this.setState(prevState => ({
-        ...prevState,
-        isFetchingMoreOf: false
-      }))
+      this.props.setFilterOffset(offset)
+      this.props.toggleFetchingParcial()
     })
   }
+
   render () {
     return (
       <div className='l-content-container'>
         <ComicListFilterForm
-          isFetching={this.state.isFetching}
+          isFetching={this.props.fetching.full}
           hasFilterText={this.props.filter.text}
           onSubmit={(e) => this.onSubmitFilterForm(e)}
           onClear={(e) => this.onClearFilterForm(e)} />
 
-        { this.state.isFetching && <Loading /> }
+        { this.props.fetching.full && <Loading /> }
 
         { !this.props.comics.length &&
-          !this.state.isFetching &&
+          !this.props.fetching.full &&
           this.props.filter.text &&
           <p>No results for '{this.props.filter.text}'</p>
         }
 
-        { !this.state.isFetching &&
+        { !this.props.fetching.full &&
           <ComicList comics={this.props.comics} hasFilter={this.props.filter.text} />
         }
 
         { this.props.filter.count + this.props.filter.offset < this.props.filter.total &&
-          !this.state.isFetchingMoreOf &&
-          !this.state.isFetching &&
+          !this.props.fetching.parcial &&
+          !this.props.fetching.full &&
           <button className='c-button c-button--primary c-button--full-width' onClick={this.onLoadMore}>Load more</button>
         }
 
-        { this.state.isFetchingMoreOf &&
+        { this.props.fetching.parcial &&
           !this.props.filter.isFetching &&
           <Loading />
         }
@@ -131,7 +116,8 @@ class ComicListPage extends React.Component {
 
 const mapStateToProps = (state) => ({
   filter: state.filter,
-  comics: state.comics
+  comics: state.comics,
+  fetching: state.fetching
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -140,7 +126,9 @@ const mapDispatchToProps = (dispatch) => ({
   setFilterText: (text) => dispatch(setText(text)),
   setFilterOffset: (offset) => dispatch(setOffset(offset)),
   startSetComics: (params) => dispatch(startSetComics(params)),
-  startAddComics: (params) => dispatch(startAddComics(params))
+  startAddComics: (params) => dispatch(startAddComics(params)),
+  toggleFetchingFull: () => dispatch(toggleFull()),
+  toggleFetchingParcial: () => dispatch(toggleParcial())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ComicListPage)
