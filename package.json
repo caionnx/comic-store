@@ -24,10 +24,10 @@
     "react-dom": "16.0.0",
     "react-lazyload": "^2.3.0",
     "react-modal": "^3.4.4",
-    "react-redux": "5.0.5",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
-    "redux": "3.7.2",
-    "redux-thunk": "2.2.0",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "webpack": "4.9.1"
