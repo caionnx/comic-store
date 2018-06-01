@@ -1,4 +1,4 @@
-export default class MarvelAPI {
+class MarvelAPI {
   state = {
     percentageOfRareComics: 10,
     mandatoryFilters: {
@@ -60,3 +60,7 @@ export default class MarvelAPI {
     }
   }
 }
+
+const marvelAPI = new MarvelAPI()
+
+export default marvelAPI
