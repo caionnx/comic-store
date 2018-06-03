@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { toggleFull } from '../actions/fetching'
-import { setCount, setTotal, setText, setOffset } from '../actions/filter'
+import { setText, setSearchParams } from '../actions/filter'
 import { startSetComics } from '../actions/comics'
 
 class ComicListFilterForm extends React.Component {
@@ -12,9 +12,7 @@ class ComicListFilterForm extends React.Component {
       toggleFetchingFull,
       setFilterText,
       startSetComics,
-      setFilterCount,
-      setFilterTotal,
-      setFilterOffset
+      setSearchParams
     } = this.props
     const title = e.target.querySelector('#title-input').value
     const validParam = title.length > 0 ? { title } : filter.minimal
@@ -24,9 +22,7 @@ class ComicListFilterForm extends React.Component {
 
     startSetComics(validParam).then(data => {
       const { offset, count, total } = data
-      setFilterCount(count)
-      setFilterTotal(total)
-      setFilterOffset(offset)
+      this.props.setSearchParams({ offset, count, total })
 
       toggleFetchingFull()
     })
@@ -37,9 +33,7 @@ class ComicListFilterForm extends React.Component {
     const {
       setFilterText,
       startSetComics,
-      setFilterCount,
-      setFilterTotal,
-      setFilterOffset,
+      setSearchParams,
       filter
     } = this.props
     const titleElem = e.target.closest('form').querySelector('#title-input')
@@ -48,10 +42,7 @@ class ComicListFilterForm extends React.Component {
     setFilterText(null)
     startSetComics(filter.minimal).then(data => {
       const { offset, count, total } = data
-
-      setFilterCount(count)
-      setFilterTotal(total)
-      setFilterOffset(offset)
+      setSearchParams({ offset, count, total })
     })
   }
 
@@ -81,11 +72,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   toggleFetchingFull: () => dispatch(toggleFull()),
-  setFilterCount: (count) => dispatch(setCount(count)),
-  setFilterTotal: (total) => dispatch(setTotal(total)),
   setFilterText: (text) => dispatch(setText(text)),
-  setFilterOffset: (offset) => dispatch(setOffset(offset)),
-  startSetComics: (params) => dispatch(startSetComics(params)),
+  setSearchParams: (params) => dispatch(setSearchParams(params)),
+  startSetComics: (params) => dispatch(startSetComics(params))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ComicListFilterForm)

@@ -1,9 +1,11 @@
 const filterReducerDefaultState = {
   text: null,
-  count: 0,
-  offset: 0,
-  total: 0,
-  limit: 20,
+  searchParams: {
+    count: 0,
+    offset: 0,
+    total: 0,
+    limit: 20
+  },
   minimal: {
     dateDescriptor: 'thisWeek'
   }
@@ -16,20 +18,10 @@ export default (state = filterReducerDefaultState, action) => {
         ...state,
         text: action.text
       }
-    case 'SET_COUNT':
+    case 'SET_SEARCH_PARAMS':
       return {
         ...state,
-        count: action.count
-      }
-    case 'SET_TOTAL':
-      return {
-        ...state,
-        total: action.total
-      }
-    case 'SET_OFFSET':
-      return {
-        ...state,
-        offset: action.offset
+        searchParams: { ...state.searchParams, ...action.params }
       }
     default:
       return state
