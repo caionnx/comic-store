@@ -8,13 +8,18 @@ import { toggleFull } from '../actions/fetching'
 
 class ComicListPage extends React.Component {
   componentDidMount () {
-    this.props.toggleFetchingFull()
+    const {
+      filter,
+      startSetComics,
+      setSearchParams,
+      toggleFetchingFull
+    } = this.props
 
-    this.props.startSetComics(this.props.filter.minimal).then(data => {
+    startSetComics(filter.minimal).then(data => {
       const { offset, count, total } = data
-      this.props.setSearchParams({ offset, count, total })
+      setSearchParams({ offset, count, total })
 
-      this.props.toggleFetchingFull()
+      toggleFetchingFull()
     })
   }
 

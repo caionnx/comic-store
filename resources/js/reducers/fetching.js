@@ -1,5 +1,5 @@
 const fetchingReducerDefaultState = {
-  full: false,
+  full: true,
   parcial: false
 }
 
