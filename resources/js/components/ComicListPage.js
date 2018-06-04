@@ -2,8 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ComicList from './ComicList'
 import ComicListFilterForm from './ComicListFilterForm'
-import ComicListLoadButton from './ComicListLoadButton'
-import Loading from './Loading'
 import { setSearchParams } from '../actions/filter'
 import { startSetComics } from '../actions/comics'
 import { toggleFull } from '../actions/fetching'
@@ -24,20 +22,7 @@ class ComicListPage extends React.Component {
     return (
       <div className='l-content-container'>
         <ComicListFilterForm />
-
-        { this.props.fetching.full && <Loading /> }
-
-        { !this.props.comics.length &&
-          !this.props.fetching.full &&
-          this.props.filter.text &&
-          <p>No results for '{this.props.filter.text}'</p>
-        }
-
-        { !this.props.fetching.full &&
-          <ComicList comics={this.props.comics} hasFilter={this.props.filter.text} />
-        }
-
-        <ComicListLoadButton />
+        <ComicList />
       </div>
     )
   }
