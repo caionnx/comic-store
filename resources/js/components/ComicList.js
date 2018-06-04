@@ -5,6 +5,10 @@ import ComicListLoadButton from './ComicListLoadButton'
 import Loading from './Loading'
 
 class ComicList extends React.Component {
+  state = {
+    welcomeMessage: 'Comics from this week'
+  }
+
   render () {
     const ComicListContainer = (
       <div className={`c-comic-list ${this.props.toCartListView ? 'c-comic-list--rows' : ''}`}>
@@ -16,6 +20,12 @@ class ComicList extends React.Component {
 
     return (
       <div>
+        {
+          this.props.filter.text
+            ? <h3>Showing results for '{this.props.filter.text}'.</h3>
+            : <h3>{this.state.welcomeMessage}</h3>
+        }
+
         { !this.props.comics.length &&
           !this.props.fetching.full &&
           this.props.filter.text &&
