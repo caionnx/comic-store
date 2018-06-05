@@ -7,6 +7,8 @@
   "license": "MIT",
   "scripts": {
     "local-server": "webpack-dev-server",
+    "test": "jest --config=jest.config.json",
+    "test-coverage": "jest --config=jest.config.json --coverage",
     "build-prod": "webpack -p --env production"
   },
   "dependencies": {
@@ -35,6 +37,9 @@
   "devDependencies": {
     "babel-eslint": "^8.2.3",
     "dotenv": "^5.0.1",
+    "enzyme": "3.0.0",
+    "enzyme-adapter-react-16": "1.0.0",
+    "enzyme-to-json": "^3.3.3",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-config-standard-react": "^6.0.0",
@@ -44,6 +49,10 @@
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-react": "^7.8.2",
     "eslint-plugin-standard": "^3.1.0",
+    "jest": "20.0.4",
+    "raf": "3.3.2",
+    "react-test-renderer": "^16.3.2",
+    "redux-mock-store": "1.2.3",
     "webpack-cli": "^2.1.4",
     "webpack-dev-server": "^3.1.4"
   }

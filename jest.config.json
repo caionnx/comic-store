@@ -1,0 +1,13 @@
+{
+  "snapshotSerializers": [
+    "enzyme-to-json/serializer"
+  ],
+  "setupFiles": [
+    "raf/polyfill",
+    "<rootDir>/resources/js/tests/setupTests.js"
+  ],
+  "collectCoverageFrom": [
+    "resources/js/**/*.{js,jsx}",
+    "!**/node_modules/**"
+  ]
+}
