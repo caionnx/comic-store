@@ -1,6 +1,6 @@
 import marvelApi from '../api/marvelApi'
 
-const parseResults = (data) => ({
+export const parseResults = (data) => ({
   comics: data.results,
   offset: parseInt(data.offset, 10),
   count: parseInt(data.count, 10),
@@ -17,20 +17,16 @@ export const addComics = (comics) => ({
   comics
 })
 
-export const startSetComics = (params) => (dispatch) => {
-  return marvelApi.getComics(params).then((data) => {
+const higherOrderAPIDispatch = (dispatch, params, fn) =>
+  marvelApi.getComics(params).then((data) => {
     const { comics, offset, count, total } = parseResults(data)
-    dispatch(setComics(comics))
+    dispatch(fn(comics))
 
     return { offset, count, total }
   })
-}
 
-export const startAddComics = (params) => (dispatch) => {
-  return marvelApi.getComics(params).then((data) => {
-    const { comics, offset, count, total } = parseResults(data)
-    dispatch(addComics(comics))
+export const startSetComics = (params) => (dispatch) =>
+  higherOrderAPIDispatch(dispatch, params, setComics)
 
-    return { offset, count, total }
-  })
-}
+export const startAddComics = (params) => (dispatch) =>
+  higherOrderAPIDispatch(dispatch, params, addComics)
