@@ -1,4 +1,4 @@
-const filterReducerDefaultState = {
+export const filterReducerDefaultState = {
   text: null,
   searchParams: {
     count: 0,

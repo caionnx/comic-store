@@ -1,4 +1,4 @@
-const fetchingReducerDefaultState = {
+export const fetchingReducerDefaultState = {
   full: true,
   parcial: false
 }
