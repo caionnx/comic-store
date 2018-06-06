@@ -3,13 +3,7 @@ import thunk from 'redux-thunk'
 import * as actions from '../../actions/comics'
 import { comics, request } from '../fixtures/comics'
 
-const mockRequestData = request.data
 const createMockStore = configureMockStore([thunk])
-jest.mock('../../api/marvelApi', () => ({
-  getComics: () => new Promise(resolve => {
-    resolve(mockRequestData)
-  })
-}))
 
 test('Should setup set comics action object', () => {
   const action = actions.setComics(comics)
