@@ -1,4 +1,4 @@
-class MarvelAPI {
+export class MarvelAPI {
   state = {
     percentageOfRareComics: 10,
     mandatoryFilters: {
@@ -35,6 +35,7 @@ class MarvelAPI {
   }
 
   parseResults (request) {
+    console.log(request)
     return new Promise(resolve => {
       request.then(
         response => response.json().then(data => {
