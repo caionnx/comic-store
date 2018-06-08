@@ -1,0 +1,28 @@
+import marvelApi from '../../api/marvelApi'
+import { comics, request } from '../fixtures/comics'
+
+test('Should transform object to url params', () => {
+  const obj = { title: 'avengers', limit: 20, offset: 3 }
+  const expected = `title=${obj.title}&limit=${obj.limit}&offset=${obj.offset}`
+
+  expect(marvelApi.serialize(obj)).toEqual(expected)
+})
+
+test('Should generate rare comics', () => {
+  const comicsWithRares = marvelApi.generateRares(comics, 20)
+  const rares = comicsWithRares.filter(c => c.rareIssue)
+
+  expect(rares).toHaveLength(2)
+})
+
+test('Should parse result with rares', (done) => {
+  const fetchRequest = new Promise(resolve => {
+    setTimeout(() => resolve(request), 1000)
+  })
+  const result = marvelApi.parseResults(fetchRequest)
+
+  result.then((data) => {
+    console.log(data)
+    done()
+  })
+})
