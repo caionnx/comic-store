@@ -15,14 +15,26 @@ test('Should generate rare comics', () => {
   expect(rares).toHaveLength(2)
 })
 
-test('Should parse result with rares', (done) => {
+test('Should parse result with rares', () => {
   const fetchRequest = new Promise(resolve => {
-    setTimeout(() => resolve(request), 1000)
+    setTimeout(() => resolve({
+      data: request
+    }), 1000)
   })
   const result = marvelApi.parseResults(fetchRequest)
 
-  result.then((data) => {
-    console.log(data)
-    done()
+  return result.then((data) => {
+    const resultComics = data.results
+    const rareIssues = resultComics.filter(c => c.rareIssue)
+
+    expect(resultComics).toHaveLength(comics.length)
+    expect(rareIssues).toHaveLength(1)
   })
+})
+
+test.only('Should get promise from Marvel API', () => {
+  const APIrequest = marvelApi.getComics()
+  APIrequest.then(() => null)
+  APIrequest.catch((e) => console.log(e))
+  expect(typeof APIrequest.then).toBe('function')
 })
