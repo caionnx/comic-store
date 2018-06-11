@@ -2,11 +2,21 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ComicList from './ComicList'
 import ComicListFilterForm from './ComicListFilterForm'
+import ComicListLoadButton from './ComicListLoadButton'
+import Loading from './Loading'
 import { setSearchParams } from '../actions/filter'
 import { startSetComics } from '../actions/comics'
 import { toggleFull } from '../actions/fetching'
 
 class ComicListPage extends React.Component {
+  state = {
+    welcomeMessage: 'Comics from this week'
+  }
+
+  componentDidUpdate () {
+    console.log('fsfafsa')
+  }
+
   componentDidMount () {
     const {
       filter,
@@ -27,7 +37,25 @@ class ComicListPage extends React.Component {
     return (
       <div className='l-content-container'>
         <ComicListFilterForm />
-        <ComicList />
+
+        {
+          this.props.filter.text
+            ? <h3>Showing results for '{this.props.filter.text}'.</h3>
+            : <h3>{this.state.welcomeMessage}</h3>
+        }
+
+        { !this.props.comics.length &&
+          !this.props.fetching.full &&
+          this.props.filter.text &&
+          <p>No results for '{this.props.filter.text}'</p>
+        }
+
+        { this.props.fetching.full
+          ? <Loading />
+          : <ComicList comics={this.props.comics} />
+        }
+
+        <ComicListLoadButton />
       </div>
     )
   }
