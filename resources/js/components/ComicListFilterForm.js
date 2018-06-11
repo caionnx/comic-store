@@ -46,6 +46,11 @@ class ComicListFilterForm extends React.Component {
     })
   }
 
+  componentWillUnmount () {
+    const { setFilterText } = this.props
+    setFilterText(null)
+  }
+
   render () {
     return (
       <form onSubmit={this.onFormSubmit} className='l-input-group'>
