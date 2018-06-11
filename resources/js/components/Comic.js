@@ -1,11 +1,14 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import ReactModal from 'react-modal'
 import LazyImage from './LazyImage'
+import { addComicToCart, removeComicFromCart } from '../actions/cart'
 
 class Comic extends React.Component {
   state = {
     imageFormat: 'portrait_medium',
-    showModal: false
+    showModal: false,
+    isInCart: false
   }
 
   handleOpenModal = () => {
@@ -17,9 +20,41 @@ class Comic extends React.Component {
     this.setState({ showModal: false })
   }
 
+  handleAddToCart = (ev) => {
+    ev.stopPropagation()
+
+    this.props.addComicToCart(this.props.comic)
+    this.setState({ isInCart: true })
+  }
+
+  handleRemoveFromCart = (ev) => {
+    ev.stopPropagation()
+    const id = ev.target.getAttribute('id')
+
+    this.props.removeComicFromCart(parseInt(id, 10))
+    this.setState({ isInCart: false })
+  }
+
   limitCharacters = (str) => {
     if (str && str.length > 280) return `${str.substring(0, 280)}...`
     return str
+  }
+
+  buttonAction = (classNameModifier = '') => {
+    const {
+      comic,
+      cart
+    } = this.props
+    const isInCart = cart.filter(c => c.id === comic.id).length
+
+    return (
+      <button
+        id={comic.id}
+        onClick={isInCart ? this.handleRemoveFromCart : this.handleAddToCart}
+        className={`c-button ${classNameModifier} ${isInCart ? 'is-red' : 'is-yellow'}`}>
+        {isInCart ? 'Remove' : 'Add to cart'}
+      </button>
+    )
   }
 
   render () {
@@ -52,6 +87,7 @@ class Comic extends React.Component {
         <div className='c-comic-list__item-container'>
           { this.props.toCartListView && <h3 className='c-comic-list__item-title'>{title}</h3> }
           { !!validPrice && `$ ${validPrice.price}` }
+          { this.buttonAction('c-button--full-width') }
         </div>
 
         { !this.props.toCartListView &&
@@ -68,6 +104,7 @@ class Comic extends React.Component {
               <p>{this.limitCharacters(description)}</p>
               <div className='c-modal__options'>
                 <a href={validUrl.url} target='_blank' className='c-button'>More info</a>
+                { this.buttonAction() }
                 <button className='c-button' onClick={this.handleCloseModal}>Close</button>
               </div>
             </div>
@@ -83,4 +120,14 @@ Comic.defaultProps = {
   prices: [],
   urls: []
 }
-export default Comic
+
+const mapStateToProps = (state) => ({
+  cart: state.cart
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  addComicToCart: (comic) => dispatch(addComicToCart(comic)),
+  removeComicFromCart: (id) => dispatch(removeComicFromCart(id))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Comic)
