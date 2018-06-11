@@ -1,8 +1,9 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import filterReducer from '../reducers/filter'
+import cartReducer from '../reducers/cart'
 import comicsReducer from '../reducers/comics'
 import fetchingReducer from '../reducers/fetching'
+import filterReducer from '../reducers/filter'
 
 const includeReduxDevtools = process.env.NODE_ENV === 'development'
   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -12,9 +13,10 @@ const composeEnhancers = includeReduxDevtools || compose
 export default () =>
   createStore(
     combineReducers({
-      filter: filterReducer,
+      cart: cartReducer,
       comics: comicsReducer,
-      fetching: fetchingReducer
+      fetching: fetchingReducer,
+      filter: filterReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
   )
