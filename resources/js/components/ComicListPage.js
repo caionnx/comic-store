@@ -13,13 +13,10 @@ class ComicListPage extends React.Component {
     welcomeMessage: 'Comics from this week'
   }
 
-  componentDidUpdate () {
-    console.log('fsfafsa')
-  }
-
   componentDidMount () {
     const {
       filter,
+      fetching,
       startSetComics,
       setSearchParams,
       toggleFetchingFull
@@ -29,7 +26,7 @@ class ComicListPage extends React.Component {
       const { offset, count, total } = data
       setSearchParams({ offset, count, total })
 
-      toggleFetchingFull()
+      return fetching.full && toggleFetchingFull()
     })
   }
 
