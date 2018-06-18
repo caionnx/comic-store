@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ReactModal from 'react-modal'
+import PriceWithDiscountComponent from './PriceWithDiscount'
 import LazyImage from './LazyImage'
 import { addComicToCart, removeComicFromCart } from '../actions/cart'
 
@@ -61,6 +62,7 @@ class Comic extends React.Component {
     const {
       images,
       prices,
+      priceWithDiscount,
       urls,
       description,
       title,
@@ -86,7 +88,9 @@ class Comic extends React.Component {
         }
         <div className='c-comic-list__item-container'>
           { this.props.toCartListView && <h3 className='c-comic-list__item-title'>{title}</h3> }
-          { !!validPrice && `$ ${validPrice.price}` }
+          { priceWithDiscount
+            ? <PriceWithDiscountComponent oldValue={validPrice.price} newValue={priceWithDiscount} />
+            : !!validPrice && `$ ${validPrice.price}` }
           { this.buttonAction('c-button--full-width') }
         </div>
 
