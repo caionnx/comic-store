@@ -7,3 +7,9 @@ export const removeComicFromCart = (id) => ({
   type: 'REMOVE_COMIC',
   id
 })
+
+export const editComicOfCart = (id, updates) => ({
+  type: 'EDIT_COMIC',
+  id,
+  updates
+})
