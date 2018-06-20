@@ -30,7 +30,7 @@ class ComicCartPage extends React.Component {
   render () {
     const amount = this.getTotalAmount()
     const amountIncludingDiscount = this.getTotalAmountIncludingDiscount()
-    console.log(amount, amountIncludingDiscount)
+
     return (
       <div className='l-content-container'>
         <ComicList comics={this.props.cart} toCartListView />
