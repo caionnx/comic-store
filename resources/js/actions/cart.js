@@ -13,3 +13,8 @@ export const editComicOfCart = (id, updates) => ({
   id,
   updates
 })
+
+export const addDiscountObjectToCart = (discount) => ({
+  type: 'ADD_DISCOUNT',
+  discount
+})
