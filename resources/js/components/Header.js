@@ -23,7 +23,7 @@ const Header = (props) => (
 )
 
 const mapStateToProps = (state) => ({
-  cartTotal: state.cart && state.cart.length
+  cartTotal: state.cart.items && state.cart.items.length
 })
 
 export default connect(mapStateToProps)(Header)

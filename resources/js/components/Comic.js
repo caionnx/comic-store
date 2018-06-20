@@ -126,7 +126,7 @@ Comic.defaultProps = {
 }
 
 const mapStateToProps = (state) => ({
-  cart: state.cart
+  cart: state.cart.items
 })
 
 const mapDispatchToProps = (dispatch) => ({

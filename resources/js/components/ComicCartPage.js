@@ -34,10 +34,10 @@ class ComicCartPage extends React.Component {
     return (
       <div className='l-content-container'>
         <ComicList comics={this.props.cart} toCartListView />
-        <p>Total:
+        <p><span>Total: </span>
           { this.someHasDiscount()
             ? <PriceWithDiscountComponent oldValue={amount} newValue={amountIncludingDiscount} />
-            : ` $ ${round(amountIncludingDiscount)}`
+            : `$ ${round(amountIncludingDiscount)}`
           }
         </p>
         <ComicCartDiscounts />
@@ -47,7 +47,7 @@ class ComicCartPage extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  cart: state.cart
+  cart: state.cart.items
 })
 
 export default connect(mapStateToProps)(ComicCartPage)
