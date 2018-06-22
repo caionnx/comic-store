@@ -27,19 +27,37 @@ class ComicCartPage extends React.Component {
   someHasDiscount = () =>
     !!this.props.cart.find(c => !!c.priceWithDiscount)
 
+  discountsAppliedComponent = () => {
+    const { discounts } = this.props
+    return (
+      <p>
+        <span>Discounts applied: </span>
+        { discounts.map((discount, idx) =>
+          <span key={discount.type}>
+            {discount.code}
+            {idx < discounts.length - 1 ? ', ' : ''}
+          </span>
+        ) }
+      </p>
+    )
+  }
+
   render () {
     const amount = this.getTotalAmount()
     const amountIncludingDiscount = this.getTotalAmountIncludingDiscount()
+    const { discounts, cart } = this.props
 
     return (
       <div className='l-content-container'>
-        <ComicList comics={this.props.cart} toCartListView />
-        <p><span>Total: </span>
+        <ComicList comics={cart} toCartListView />
+        <p>
+          <span>Total: </span>
           { this.someHasDiscount()
             ? <PriceWithDiscountComponent oldValue={amount} newValue={amountIncludingDiscount} />
             : `$ ${round(amountIncludingDiscount)}`
           }
         </p>
+        { discounts.length ? this.discountsAppliedComponent() : '' }
         <ComicCartDiscounts />
       </div>
     )
@@ -47,7 +65,8 @@ class ComicCartPage extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  cart: state.cart.items
+  cart: state.cart.items,
+  discounts: state.cart.discounts
 })
 
 export default connect(mapStateToProps)(ComicCartPage)
