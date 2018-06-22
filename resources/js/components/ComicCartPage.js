@@ -30,7 +30,7 @@ class ComicCartPage extends React.Component {
   discountsAppliedComponent = () => {
     const { discounts } = this.props
     return (
-      <p>
+      <p key='discounts-applied'>
         <span>Discounts applied: </span>
         { discounts.map((discount, idx) =>
           <span key={discount.type}>
@@ -49,16 +49,30 @@ class ComicCartPage extends React.Component {
 
     return (
       <div className='l-content-container'>
-        <ComicList comics={cart} toCartListView />
-        <p>
-          <span>Total: </span>
-          { this.someHasDiscount()
-            ? <PriceWithDiscountComponent oldValue={amount} newValue={amountIncludingDiscount} />
-            : `$ ${round(amountIncludingDiscount)}`
-          }
-        </p>
-        { discounts.length ? this.discountsAppliedComponent() : '' }
-        <ComicCartDiscounts />
+        <If condition={cart.length}>
+          <ComicList comics={cart} toCartListView />
+
+          <p>
+            <span>Total: </span>
+            <Choose>
+              <When condition={this.someHasDiscount()}>
+                <PriceWithDiscountComponent oldValue={amount} newValue={amountIncludingDiscount} />
+              </When>
+              <Otherwise>
+                $ {round(amountIncludingDiscount)}
+              </Otherwise>
+            </Choose>
+          </p>
+
+          <If condition={this.someHasDiscount() && discounts.length}>
+            { this.discountsAppliedComponent() }
+          </If>
+
+          <ComicCartDiscounts />
+        </If>
+        <If condition={!cart.length}>
+          <h3>Your cart it's empty!</h3>
+        </If>
       </div>
     )
   }
