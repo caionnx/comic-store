@@ -61,7 +61,7 @@ class ComicCartDiscounts extends React.Component {
     const { cart, discountsList, addObjToDiscountsList } = this.props
     const code = ev.target.querySelector('#discount-input').value
     const typeOfDiscount = this.getTypeOfDiscount(code)
-    if (!discountsList.includes(code) && typeOfDiscount) {
+    if (typeOfDiscount && !discountsList.find(d => d.type === typeOfDiscount.type)) {
       comicsToApply = cart.filter(typeOfDiscount.rule)
       this.handleDiscount(typeOfDiscount, comicsToApply)
       addObjToDiscountsList({...typeOfDiscount, code})
