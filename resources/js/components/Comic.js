@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ReactModal from 'react-modal'
+import PropTypes from 'prop-types'
 import PriceWithDiscountComponent from './PriceWithDiscount'
 import LazyImage from './LazyImage'
 import { addComicToCart, removeComicFromCart } from '../actions/cart'
@@ -129,6 +130,14 @@ Comic.defaultProps = {
   images: [{ path: 'http://via.placeholder.com/100x150', extension: 'jpg' }],
   prices: [],
   urls: []
+}
+
+Comic.propTypes = {
+  cart: PropTypes.array.isRequired,
+  toCartListView: PropTypes.any,
+  addComicToCart: PropTypes.func.isRequired,
+  removeComicFromCart: PropTypes.func.isRequired,
+  comic: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({

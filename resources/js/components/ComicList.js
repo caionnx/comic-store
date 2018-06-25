@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Comic from './Comic'
 
 export default class ComicList extends React.Component {
@@ -11,4 +12,9 @@ export default class ComicList extends React.Component {
       </div>
     )
   }
+}
+
+ComicList.propTypes = {
+  comics: PropTypes.array.isRequired,
+  toCartListView: PropTypes.any
 }

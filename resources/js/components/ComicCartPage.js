@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import round from '../utils/round'
 import PriceWithDiscountComponent from './PriceWithDiscount'
 import ComicList from './ComicList'
@@ -76,6 +77,11 @@ class ComicCartPage extends React.Component {
       </div>
     )
   }
+}
+
+ComicCartPage.propTypes = {
+  cart: PropTypes.array.isRequired,
+  discounts: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state) => ({

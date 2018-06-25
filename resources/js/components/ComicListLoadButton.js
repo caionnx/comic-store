@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import React from 'react'
+import PropTypes from 'prop-types'
 import Loading from './Loading'
 import { setSearchParams } from '../actions/filter'
 import { startAddComics } from '../actions/comics'
@@ -39,7 +40,7 @@ class ComicListLoadButton extends React.Component {
   render () {
     const {
       filter,
-      fetching,
+      fetching
     } = this.props
     const { count, offset, total } = filter.searchParams
 
@@ -60,6 +61,14 @@ class ComicListLoadButton extends React.Component {
       </div>
     )
   }
+}
+
+ComicListLoadButton.propTypes = {
+  setSearchParams: PropTypes.func.isRequired,
+  startAddComics: PropTypes.func.isRequired,
+  toggleFetchingParcial: PropTypes.func.isRequired,
+  fetching: PropTypes.object.isRequired,
+  filter: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({

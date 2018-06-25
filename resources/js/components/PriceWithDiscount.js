@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import round from '../utils/round'
 
 const PriceWithDiscountComponent = (props) => {
@@ -12,6 +13,11 @@ const PriceWithDiscountComponent = (props) => {
       $ {round(props.newValue)}
     </span>
   )
+}
+
+PriceWithDiscountComponent.propTypes = {
+  newValue: PropTypes.number.isRequired,
+  oldValue: PropTypes.number.isRequired
 }
 
 export default PriceWithDiscountComponent

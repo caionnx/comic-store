@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import ComicList from './ComicList'
 import ComicListFilterForm from './ComicListFilterForm'
 import ComicListLoadButton from './ComicListLoadButton'
@@ -65,6 +66,15 @@ class ComicListPage extends React.Component {
       </div>
     )
   }
+}
+
+ComicListPage.propTypes = {
+  comics: PropTypes.array.isRequired,
+  setSearchParams: PropTypes.func.isRequired,
+  startSetComics: PropTypes.func.isRequired,
+  toggleFetchingFull: PropTypes.func.isRequired,
+  fetching: PropTypes.object.isRequired,
+  filter: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({

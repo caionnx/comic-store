@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const Header = (props) => (
   <header className='c-header'>
@@ -21,6 +22,10 @@ const Header = (props) => (
     </div>
   </header>
 )
+
+Header.propTypes = {
+  cartTotal: PropTypes.number
+}
 
 const mapStateToProps = (state) => ({
   cartTotal: state.cart.items && state.cart.items.length

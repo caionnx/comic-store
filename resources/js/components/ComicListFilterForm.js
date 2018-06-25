@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { toggleFull } from '../actions/fetching'
 import { setText, setSearchParams } from '../actions/filter'
 import { startSetComics } from '../actions/comics'
@@ -26,7 +27,7 @@ class ComicListFilterForm extends React.Component {
 
     startSetComics(validParam).then(data => {
       const { offset, count, total } = data
-      this.props.setSearchParams({ offset, count, total })
+      setSearchParams({ offset, count, total })
 
       toggleFetchingFull()
     })
@@ -73,6 +74,15 @@ class ComicListFilterForm extends React.Component {
       </form>
     )
   }
+}
+
+ComicListFilterForm.propTypes = {
+  setFilterText: PropTypes.func.isRequired,
+  setSearchParams: PropTypes.func.isRequired,
+  startSetComics: PropTypes.func.isRequired,
+  toggleFetchingFull: PropTypes.func.isRequired,
+  fetching: PropTypes.object.isRequired,
+  filter: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
