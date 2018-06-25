@@ -41,19 +41,22 @@ class ComicListLoadButton extends React.Component {
       filter,
       fetching,
     } = this.props
+    const { count, offset, total } = filter.searchParams
 
     return (
       <div>
-        { filter.searchParams.count + filter.searchParams.offset < filter.searchParams.total &&
-          !fetching.parcial &&
-          !fetching.full &&
-          <button className='c-button c-button--primary c-button--full-width' onClick={this.onLoadMore}>Load more</button>
-        }
-
-        { fetching.parcial &&
-          !filter.isFetching &&
-          <Loading />
-        }
+        <Choose>
+          <When condition={fetching.parcial}>
+            <Loading />
+          </When>
+          <When condition={count + offset < total}>
+            <button
+              className='c-button c-button--primary c-button--full-width'
+              onClick={this.onLoadMore}>
+              Load more
+            </button>
+          </When>
+        </Choose>
       </div>
     )
   }

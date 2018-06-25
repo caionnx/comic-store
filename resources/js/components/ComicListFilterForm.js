@@ -5,6 +5,10 @@ import { setText, setSearchParams } from '../actions/filter'
 import { startSetComics } from '../actions/comics'
 
 class ComicListFilterForm extends React.Component {
+  constansts = {
+    titleInputSelector: 'title-input'
+  }
+
   onFormSubmit = (e) => {
     e.preventDefault()
     const {
@@ -14,7 +18,7 @@ class ComicListFilterForm extends React.Component {
       startSetComics,
       setSearchParams
     } = this.props
-    const title = e.target.querySelector('#title-input').value
+    const title = e.target.querySelector(`#${this.constansts.titleInputSelector}`).value
     const validParam = title.length > 0 ? { title } : filter.minimal
 
     toggleFetchingFull()
@@ -36,7 +40,7 @@ class ComicListFilterForm extends React.Component {
       setSearchParams,
       filter
     } = this.props
-    const titleElem = e.target.closest('form').querySelector('#title-input')
+    const titleElem = e.target.closest('form').querySelector(`#${this.constansts.titleInputSelector}`)
     titleElem.value = ''
 
     setFilterText(null)
@@ -52,19 +56,20 @@ class ComicListFilterForm extends React.Component {
   }
 
   render () {
+    const { fetching, filter } = this.props
     return (
       <form onSubmit={this.onFormSubmit} className='l-input-group'>
         <div className='l-input-group__item'>
-          <input className='c-input' type='text' id='title-input' placeholder='Insert comic title' />
+          <input className='c-input' type='text' id={this.constansts.titleInputSelector} placeholder='Insert comic title' />
         </div>
         <div className='l-input-group__item'>
-          <button className='c-button c-button--full-width' disabled={this.props.fetching.full}>Search</button>
+          <button className='c-button c-button--full-width' disabled={fetching.full}>Search</button>
         </div>
-        { this.props.filter.text &&
+        <If condition={filter.text}>
           <div className='l-input-group__item'>
             <button className='c-button c-button--full-width' onClick={this.onClearForm}>Clear</button>
           </div>
-        }
+        </If>
       </form>
     )
   }

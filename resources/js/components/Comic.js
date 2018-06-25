@@ -68,6 +68,7 @@ class Comic extends React.Component {
       title,
       rareIssue
     } = this.props.comic
+    const { toCartListView } = this.props
     const validImage = images.find(i => i.path !== '' && i.extension !== '')
     const validPrice = prices.find(p => p.price !== 0)
     const validUrl = urls.find(u => u.url !== '')
@@ -75,26 +76,31 @@ class Comic extends React.Component {
     return (
       <div
         tabIndex='0'
-        onKeyPress={() => !this.props.toCartListView && this.handleOpenModal()}
-        onClick={() => !this.props.toCartListView && this.handleOpenModal()}
+        onKeyPress={() => !toCartListView && this.handleOpenModal()}
+        onClick={() => !toCartListView && this.handleOpenModal()}
         className={`c-comic-list__item ${rareIssue ? 'is-rare' : ''}`}>
-        { validImage && validImage.path && validImage.extension &&
+        <If condition={validImage && validImage.path && validImage.extension}>
           <LazyImage
             title={title}
             src={`${validImage.path}/${this.state.imageFormat}.${validImage.extension}`}
             height={150}
             offset={50}
             once />
-        }
+        </If>
         <div className='c-comic-list__item-container'>
-          { this.props.toCartListView && <h3 className='c-comic-list__item-title'>{title}</h3> }
-          { priceWithDiscount
-            ? <PriceWithDiscountComponent oldValue={validPrice.price} newValue={priceWithDiscount} />
-            : !!validPrice && `$ ${validPrice.price}` }
+          <If condition={toCartListView}><h3 className='c-comic-list__item-title'>{title}</h3></If>
+          <Choose>
+            <When condition={priceWithDiscount}>
+              <PriceWithDiscountComponent oldValue={validPrice.price} newValue={priceWithDiscount} />
+            </When>
+            <When condition={!!validPrice}>
+              $ {validPrice.price}
+            </When>
+          </Choose>
           { this.buttonAction('c-button--full-width') }
         </div>
 
-        { !this.props.toCartListView &&
+        <If condition={!toCartListView}>
           <ReactModal
             className='c-modal'
             isOpen={this.state.showModal}
@@ -113,7 +119,7 @@ class Comic extends React.Component {
               </div>
             </div>
           </ReactModal>
-        }
+        </If>
       </div>
     )
   }

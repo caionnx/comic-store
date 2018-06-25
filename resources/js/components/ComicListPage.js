@@ -10,7 +10,8 @@ import { toggleFull } from '../actions/fetching'
 
 class ComicListPage extends React.Component {
   state = {
-    welcomeMessage: 'Comics from this week'
+    welcomeMessage: 'Comics from this week',
+    forceWelcomeMessage: true
   }
 
   componentDidMount () {
@@ -26,33 +27,41 @@ class ComicListPage extends React.Component {
       const { offset, count, total } = data
       setSearchParams({ offset, count, total })
 
+      this.setState(() => ({ forceWelcomeMessage: false }))
       return fetching.full && toggleFetchingFull()
     })
   }
 
   render () {
+    const { filter, fetching, comics } = this.props
     return (
       <div className='l-content-container'>
         <ComicListFilterForm />
 
-        {
-          this.props.filter.text
-            ? <h3>Showing results for '{this.props.filter.text}'.</h3>
-            : <h3>{this.state.welcomeMessage}</h3>
-        }
+        <Choose>
+          <When condition={(!filter.text && !fetching.full) || this.state.forceWelcomeMessage}>
+            <h3>{this.state.welcomeMessage}</h3>
+          </When>
+          <When condition={filter.text && fetching.full}>
+            <h3>Searching for '{filter.text}'</h3>
+          </When>
+          <When condition={filter.text && !fetching.full && comics.length}>
+            <h3>Showing results for '{filter.text}'.</h3>
+          </When>
+          <When condition={filter.text && !comics.length}>
+            <h3>No results for '{filter.text}'</h3>
+          </When>
+        </Choose>
 
-        { !this.props.comics.length &&
-          !this.props.fetching.full &&
-          this.props.filter.text &&
-          <p>No results for '{this.props.filter.text}'</p>
-        }
-
-        { this.props.fetching.full
-          ? <Loading />
-          : <ComicList comics={this.props.comics} />
-        }
-
-        <ComicListLoadButton />
+        <Choose>
+          <When condition={fetching.full}>
+            <Loading />
+          </When>
+          <Otherwise>
+            <ComicList comics={comics} />
+            <ComicListLoadButton />
+          </Otherwise>
+        </Choose>
       </div>
     )
   }
