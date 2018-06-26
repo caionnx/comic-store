@@ -92,10 +92,14 @@ class Comic extends React.Component {
           <If condition={toCartListView}><h3 className='c-comic-list__item-title'>{title}</h3></If>
           <Choose>
             <When condition={priceWithDiscount}>
-              <PriceWithDiscountComponent oldValue={validPrice.price} newValue={priceWithDiscount} />
+              <span className='c-comic-list__item-price'>
+                <PriceWithDiscountComponent oldValue={validPrice.price} newValue={priceWithDiscount} />
+              </span>
             </When>
             <When condition={!!validPrice}>
-              $ {validPrice.price}
+              <span className='c-comic-list__item-price'>
+                $ {validPrice.price}
+              </span>
             </When>
           </Choose>
           { this.buttonAction('c-button--full-width') }
