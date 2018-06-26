@@ -7,7 +7,7 @@ const Header = (props) => (
   <header className='c-header'>
     <div className='l-content-container'>
       <div className='c-header__content'>
-        <Link to='/'>
+        <Link to='/' className='is-unstyled'>
           <h1 className='c-header__title'>Marvel Comic Store</h1>
         </Link>
         <Link to='/cart' className='l-icon-container'>
