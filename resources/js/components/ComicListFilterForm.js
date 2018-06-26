@@ -68,7 +68,7 @@ class ComicListFilterForm extends React.Component {
         </div>
         <If condition={filter.text}>
           <div className='l-input-group__item'>
-            <button className='c-button c-button--full-width' onClick={this.onClearForm}>Clear</button>
+            <button className='c-button c-button--full-width' disabled={fetching.full} onClick={this.onClearForm}>Clear</button>
           </div>
         </If>
       </form>
