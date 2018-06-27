@@ -4,6 +4,7 @@ import ReactModal from 'react-modal'
 import PropTypes from 'prop-types'
 import PriceWithDiscountComponent from './PriceWithDiscount'
 import LazyImage from './LazyImage'
+import notificationTrigger from './Notification'
 import { addComicToCart, removeComicFromCart } from '../actions/cart'
 
 class Comic extends React.Component {
@@ -27,6 +28,11 @@ class Comic extends React.Component {
 
     this.props.addComicToCart(this.props.comic)
     this.setState({ isInCart: true })
+    notificationTrigger({
+      type: 'success',
+      message: `'${this.props.comic.title}' add to cart.`,
+      link: '/cart'
+    })
   }
 
   handleRemoveFromCart = (ev) => {
@@ -35,6 +41,10 @@ class Comic extends React.Component {
 
     this.props.removeComicFromCart(parseInt(id, 10))
     this.setState({ isInCart: false })
+    notificationTrigger({
+      type: 'error',
+      message: `'${this.props.comic.title}' removed from cart.`
+    })
   }
 
   limitCharacters = (str) => {
