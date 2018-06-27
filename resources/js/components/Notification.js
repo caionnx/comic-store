@@ -11,7 +11,7 @@ const Notification = ({ link, message }) => (
         {message}
       </Link>
     </When>
-    <Otherwise>{message}</Otherwise>
+    <Otherwise><span>{message}</span></Otherwise>
   </Choose>
 )
 

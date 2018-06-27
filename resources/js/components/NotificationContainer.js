@@ -6,6 +6,8 @@ const NotificationContainer = () => (
     position='bottom-right'
     autoClose={5000}
     hideProgressBar
+    className='c-notification'
+    closeButton={false}
     newestOnTop
     closeOnClick={false}
     rtl={false}
