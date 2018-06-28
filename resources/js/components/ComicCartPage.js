@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import round from '../utils/round'
 import PriceWithDiscountComponent from './PriceWithDiscount'
@@ -51,6 +52,8 @@ class ComicCartPage extends React.Component {
     return (
       <div className='l-content-container'>
         <If condition={cart.length}>
+          <h3>My Cart</h3>
+
           <ComicList comics={cart} toCartListView />
 
           <p>
@@ -72,7 +75,7 @@ class ComicCartPage extends React.Component {
           <ComicCartDiscounts />
         </If>
         <If condition={!cart.length}>
-          <h3>Your cart it's empty!</h3>
+          <h3>There are currently no items in your cart.</h3>
         </If>
       </div>
     )
