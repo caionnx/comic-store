@@ -4,6 +4,10 @@ import PropTypes from 'prop-types'
 import { editComicOfCart, addDiscountObjectToCart } from '../actions/cart'
 
 class ComicCartDiscounts extends React.Component {
+  constants = {
+    inputClassError: 'has-error',
+    inputId: 'discount-input'
+  }
   discountsTester = [
     {
       test: /[0-9]\w+([A-Z]{2})/,
@@ -58,14 +62,22 @@ class ComicCartDiscounts extends React.Component {
 
   onApplyDiscount = (ev) => {
     ev.preventDefault()
-    let comicsToApply
+    const { inputId, inputClassError } = this.constants
     const { cart, discountsList, addObjToDiscountsList } = this.props
-    const code = ev.target.querySelector('#discount-input').value
+    const input = ev.target.querySelector(`#${inputId}`)
+    const code = input.value
     const typeOfDiscount = this.getTypeOfDiscount(code)
-    if (typeOfDiscount && !discountsList.find(d => d.type === typeOfDiscount.type)) {
-      comicsToApply = cart.filter(typeOfDiscount.rule)
+    const comicsToApply = typeOfDiscount && cart.filter(typeOfDiscount.rule)
+    input.value = ''
+
+    if (!discountsList.find(d => d.type === typeOfDiscount.type) && comicsToApply.length) {
       this.handleDiscount(typeOfDiscount, comicsToApply)
       addObjToDiscountsList({...typeOfDiscount, code})
+    } else {
+      input.classList.add(inputClassError)
+      setTimeout(() => {
+        input.classList.remove(inputClassError)
+      }, 3000)
     }
   }
 
@@ -73,7 +85,7 @@ class ComicCartDiscounts extends React.Component {
     return (
       <form onSubmit={this.onApplyDiscount} className='l-input-group'>
         <div className='l-input-group__item'>
-          <input id='discount-input' className='c-input' type='text' placeholder='Insert code' />
+          <input autoComplete='off' id={this.constants.inputId} className='c-input' type='text' placeholder='Insert code' />
         </div>
         <div className='l-input-group__item'>
           <button className='c-button c-button--full-width'>Apply discount</button>
