@@ -7,9 +7,11 @@ import thunk from 'redux-thunk'
 import '../mocks/marvelApi'
 import { fetchingReducerDefaultState } from '../../reducers/fetching'
 import { filterReducerDefaultState } from '../../reducers/filter'
+import { cartReducerDefaultState } from '../../reducers/cart'
 import AppRouter, { SwitchRoutes } from '../../routers/AppRouter'
 import NotFoundPage from '../../components/NotFoundPage'
 import ComicListPage from '../../components/ComicListPage'
+jest.mock('react-toastify/dist/ReactToastify.css', () => '')
 
 let SimulateApp
 const createMockStore = configureMockStore([thunk])
@@ -17,7 +19,8 @@ beforeAll(() => {
   const store = createMockStore({
     comics: [],
     fetching: fetchingReducerDefaultState,
-    filter: filterReducerDefaultState
+    filter: filterReducerDefaultState,
+    cart: cartReducerDefaultState
   })
 
   SimulateApp = () => (
