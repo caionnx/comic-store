@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should comic match with snapshot 1`] = `
+<div
+  className="c-comic-list__item "
+  onClick={[Function]}
+  onKeyPress={[Function]}
+  tabIndex="0"
+>
+  <LazyImage
+    height={150}
+    offset={50}
+    once={true}
+    src="http://i.annihil.us/u/prod/marvel/i/mg/9/40/5b0f16c49c83a/portrait_medium.jpg"
+    title="Captain America (2017) #703"
+  />
+  <div
+    className="c-comic-list__item-container"
+    id="container-67933"
+  >
+    <span
+      className="c-comic-list__item-price"
+    >
+      $ 
+      3.99
+    </span>
+    <button
+      className="c-button c-button--full-width is-yellow"
+      id={67933}
+      onClick={[Function]}
+    >
+      Add to cart
+    </button>
+  </div>
+  <Modal
+    appElement={null}
+    ariaHideApp={true}
+    bodyOpenClassName="ReactModal__Body--open"
+    className="c-modal"
+    closeTimeoutMS={200}
+    contentLabel="Info about Captain America (2017) #703"
+    isOpen={false}
+    onRequestClose={[Function]}
+    parentSelector={[Function]}
+    portalClassName="ReactModalPortal"
+    shouldCloseOnEsc={true}
+    shouldCloseOnOverlayClick={true}
+    shouldFocusAfterRender={true}
+    shouldReturnFocusAfterClose={true}
+  >
+    <div
+      className="c-modal__body"
+    >
+      <h2
+        className="c-modal__title"
+      >
+        Captain America (2017) #703
+      </h2>
+      <p>
+        Jack Rogers is a wanted man on a desperate search for a cure to his son’s fatal disease! And once it’s found, a legend will be reborn!
+      </p>
+      <div
+        className="c-modal__options"
+      >
+        <a
+          className="c-button"
+          href="http://marvel.com/comics/issue/67933/captain_america_2017_703?utm_campaign=apiRef&utm_source=11eccfa59c07a22aff04caca647aa978"
+          target="_blank"
+        >
+          More info
+        </a>
+        <button
+          className="c-button  is-yellow"
+          id={67933}
+          onClick={[Function]}
+        >
+          Add to cart
+        </button>
+        <button
+          className="c-button"
+          onClick={[Function]}
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </Modal>
+</div>
+`;
