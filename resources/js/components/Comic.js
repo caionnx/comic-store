@@ -6,12 +6,12 @@ import PriceWithDiscountComponent from './PriceWithDiscount'
 import LazyImage from './LazyImage'
 import notificationTrigger from './Notification'
 import { addComicToCart, removeComicFromCart } from '../actions/cart'
+import limitCharacters from '../utils/limitCharacters'
 
-class Comic extends React.Component {
+export class Comic extends React.Component {
   state = {
     imageFormat: 'portrait_medium',
-    showModal: false,
-    isInCart: false
+    showModal: false
   }
 
   handleOpenModal = () => {
@@ -27,7 +27,6 @@ class Comic extends React.Component {
     ev.stopPropagation()
 
     this.props.addComicToCart(this.props.comic)
-    this.setState({ isInCart: true })
     notificationTrigger({
       type: 'success',
       message: `'${this.props.comic.title}' add to cart.`,
@@ -40,16 +39,10 @@ class Comic extends React.Component {
     const id = ev.target.getAttribute('id')
 
     this.props.removeComicFromCart(parseInt(id, 10))
-    this.setState({ isInCart: false })
     notificationTrigger({
       type: 'error',
       message: `'${this.props.comic.title}' removed from cart.`
     })
-  }
-
-  limitCharacters = (str) => {
-    if (str && str.length > 280) return `${str.substring(0, 280)}...`
-    return str
   }
 
   buttonAction = (classNameModifier = '') => {
@@ -71,6 +64,7 @@ class Comic extends React.Component {
 
   render () {
     const {
+      id,
       images,
       prices,
       priceWithDiscount,
@@ -98,7 +92,7 @@ class Comic extends React.Component {
             offset={50}
             once />
         </If>
-        <div className='c-comic-list__item-container'>
+        <div className='c-comic-list__item-container' id={`container-${id}`}>
           <If condition={toCartListView}><h3 className='c-comic-list__item-title'>{title}</h3></If>
           <Choose>
             <When condition={priceWithDiscount}>
@@ -126,11 +120,16 @@ class Comic extends React.Component {
 
             <div className='c-modal__body'>
               <h2 className='c-modal__title'>{title}</h2>
-              <p>{this.limitCharacters(description)}</p>
+              <p>{limitCharacters(description, 280)}</p>
               <div className='c-modal__options'>
                 <a href={validUrl.url} target='_blank' className='c-button'>More info</a>
                 { this.buttonAction() }
-                <button className='c-button' onClick={this.handleCloseModal}>Close</button>
+                <button
+                  id='close-modal'
+                  className='c-button'
+                  onClick={this.handleCloseModal}>
+                  Close
+                </button>
               </div>
             </div>
           </ReactModal>
