@@ -78,6 +78,7 @@ exports[`Should comic match with snapshot 1`] = `
         </button>
         <button
           className="c-button"
+          id="close-modal"
           onClick={[Function]}
         >
           Close
