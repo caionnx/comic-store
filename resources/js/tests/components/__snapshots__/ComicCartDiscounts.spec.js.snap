@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should discount component match with snapshot 1`] = `
+<form
+  className="l-input-group"
+  onSubmit={[Function]}
+>
+  <div
+    className="l-input-group__item"
+  >
+    <input
+      autoComplete="off"
+      className="c-input"
+      id="discount-input"
+      placeholder="Insert code"
+      type="text"
+    />
+  </div>
+  <div
+    className="l-input-group__item"
+  >
+    <button
+      className="c-button c-button--full-width"
+    >
+      Apply discount
+    </button>
+  </div>
+</form>
+`;

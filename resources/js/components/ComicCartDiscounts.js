@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { editComicOfCart, addDiscountObjectToCart } from '../actions/cart'
 
-class ComicCartDiscounts extends React.Component {
+export class ComicCartDiscounts extends React.Component {
   constants = {
     inputClassError: 'has-error',
     inputId: 'discount-input'
@@ -42,7 +42,7 @@ class ComicCartDiscounts extends React.Component {
     return price || 0
   }
 
-  handleDiscount = (discount, comicsToApply) => {
+  handleDiscount (discount, comicsToApply) {
     comicsToApply.forEach(comic => {
       const price = this.getPrice(comic)
       const priceWithDiscount = price - ((price * discount.value) / 100)
@@ -70,7 +70,7 @@ class ComicCartDiscounts extends React.Component {
     const comicsToApply = typeOfDiscount && cart.filter(typeOfDiscount.rule)
     input.value = ''
 
-    if (!discountsList.find(d => d.type === typeOfDiscount.type) && comicsToApply.length) {
+    if (!discountsList.find(d => d.type === typeOfDiscount.type) && comicsToApply && comicsToApply.length) {
       this.handleDiscount(typeOfDiscount, comicsToApply)
       addObjToDiscountsList({...typeOfDiscount, code})
     } else {
