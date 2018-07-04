@@ -1,0 +1,170 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should match ComicList with snapshot 1`] = `
+<div
+  className="c-comic-list "
+>
+  <Connect(Comic)
+    comic={
+      Object {
+        "characters": Object {
+          "available": 1,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/67933/characters",
+          "items": Array [
+            Object {
+              "name": "Captain America",
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009220",
+            },
+          ],
+          "returned": 1,
+        },
+        "collectedIssues": Array [],
+        "collections": Array [],
+        "creators": Object {
+          "available": 9,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/67933/creators",
+          "items": Array [
+            Object {
+              "name": "Jordie Bellaire",
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12989",
+              "role": "colorist",
+            },
+            Object {
+              "name": "Irma Kniivila",
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/13085",
+              "role": "colorist",
+            },
+            Object {
+              "name": "Tom Brevoort",
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/2133",
+              "role": "editor",
+            },
+            Object {
+              "name": "Vc Joe Caramagna",
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12982",
+              "role": "letterer",
+            },
+            Object {
+              "name": "Michael Cho",
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/9096",
+              "role": "penciler (cover)",
+            },
+            Object {
+              "name": "Alan Davis",
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/16",
+              "role": "penciler",
+            },
+            Object {
+              "name": "Leonardo Romero",
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12825",
+              "role": "penciler",
+            },
+            Object {
+              "name": "Mark Farmer",
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/440",
+              "role": "inker",
+            },
+            Object {
+              "name": "Mark Waid",
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/119",
+              "role": "writer",
+            },
+          ],
+          "returned": 9,
+        },
+        "dates": Array [
+          Object {
+            "date": "2018-06-06T00:00:00-0400",
+            "type": "onsaleDate",
+          },
+          Object {
+            "date": "2018-05-14T00:00:00-0400",
+            "type": "focDate",
+          },
+        ],
+        "description": "Jack Rogers is a wanted man on a desperate search for a cure to his son’s fatal disease! And once it’s found, a legend will be reborn!",
+        "diamondCode": "APR180756",
+        "digitalId": 0,
+        "ean": "",
+        "events": Object {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/67933/events",
+          "items": Array [],
+          "returned": 0,
+        },
+        "format": "Comic",
+        "id": 67933,
+        "images": Array [
+          Object {
+            "extension": "jpg",
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/9/40/5b0f16c49c83a",
+          },
+          Object {
+            "extension": "jpg",
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/e/e0/5abd3a1b72d9d",
+          },
+        ],
+        "isbn": "",
+        "issn": "0274-5267",
+        "issueNumber": 703,
+        "modified": "2018-05-30T17:45:06-0400",
+        "pageCount": 32,
+        "prices": Array [
+          Object {
+            "price": 3.99,
+            "type": "printPrice",
+          },
+        ],
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/67933",
+        "series": Object {
+          "name": "Captain America (2017 - 2018)",
+          "resourceURI": "http://gateway.marvel.com/v1/public/series/23277",
+        },
+        "stories": Object {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/67933/stories",
+          "items": Array [
+            Object {
+              "name": "cover from Captain America (2017) #703",
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/147425",
+              "type": "cover",
+            },
+            Object {
+              "name": "story from Captain America (2017) #703",
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/147426",
+              "type": "interiorStory",
+            },
+          ],
+          "returned": 2,
+        },
+        "textObjects": Array [
+          Object {
+            "language": "en-us",
+            "text": "Jack Rogers is a wanted man on a desperate search for a cure to his son’s fatal disease! And once it’s found, a legend will be reborn!",
+            "type": "issue_solicit_text",
+          },
+        ],
+        "thumbnail": Object {
+          "extension": "jpg",
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/9/40/5b0f16c49c83a",
+        },
+        "title": "Captain America (2017) #703",
+        "upc": "75960608768670311",
+        "urls": Array [
+          Object {
+            "type": "detail",
+            "url": "http://marvel.com/comics/issue/67933/captain_america_2017_703?utm_campaign=apiRef&utm_source=11eccfa59c07a22aff04caca647aa978",
+          },
+          Object {
+            "type": "purchase",
+            "url": "http://comicstore.marvel.com/Captain-America-703/digital-comic/48239?utm_campaign=apiRef&utm_source=11eccfa59c07a22aff04caca647aa978",
+          },
+        ],
+        "variantDescription": "",
+        "variants": Array [],
+      }
+    }
+    key="0"
+  />
+</div>
+`;
