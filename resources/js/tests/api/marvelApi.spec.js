@@ -32,7 +32,7 @@ test('Should parse result with rares', () => {
   })
 })
 
-test.only('Should get promise from Marvel API', () => {
+test('Should get promise from Marvel API', () => {
   const APIrequest = marvelApi.getComics()
   APIrequest.then(() => null)
   APIrequest.catch((e) => console.log(e))
