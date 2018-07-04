@@ -1,35 +1,37 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import round from '../utils/round'
 import PriceWithDiscountComponent from './PriceWithDiscount'
 import ComicList from './ComicList'
 import ComicCartDiscounts from './ComicCartDiscounts'
 
-class ComicCartPage extends React.Component {
-  getPrice = (comic) => {
+export class ComicCartPage extends React.Component {
+  getPrice (comic) {
     const { price } = comic.prices.find(p => p.price !== 0) || { price: 0 }
     return price
   }
 
-  getTotalAmount = () =>
-    this.props.cart.reduce((total, item) => {
+  getTotalAmount () {
+    return this.props.cart.reduce((total, item) => {
       total += this.getPrice(item)
       return total
     }, 0)
+  }
 
-  getTotalAmountIncludingDiscount = () =>
-    this.props.cart.reduce((total, item) => {
+  getTotalAmountIncludingDiscount () {
+    return this.props.cart.reduce((total, item) => {
       const withDiscount = item.priceWithDiscount
       total += withDiscount || this.getPrice(item)
       return total
     }, 0)
+  }
 
-  someHasDiscount = () =>
-    !!this.props.cart.find(c => !!c.priceWithDiscount)
+  someHasDiscount () {
+    return !!this.props.cart.find(c => !!c.priceWithDiscount)
+  }
 
-  discountsAppliedComponent = () => {
+  discountsAppliedComponent () {
     const { discounts } = this.props
     return (
       <p key='discounts-applied'>
