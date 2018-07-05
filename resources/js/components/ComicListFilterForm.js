@@ -5,7 +5,7 @@ import { toggleFull } from '../actions/fetching'
 import { setText, setSearchParams } from '../actions/filter'
 import { startSetComics } from '../actions/comics'
 
-class ComicListFilterForm extends React.Component {
+export class ComicListFilterForm extends React.Component {
   constansts = {
     titleInputSelector: 'title-input'
   }
@@ -68,7 +68,7 @@ class ComicListFilterForm extends React.Component {
         </div>
         <If condition={filter.text}>
           <div className='l-input-group__item'>
-            <button className='c-button c-button--full-width' disabled={fetching.full} onClick={this.onClearForm}>Clear</button>
+            <button id='clear-filter' className='c-button c-button--full-width' disabled={fetching.full} onClick={this.onClearForm}>Clear</button>
           </div>
         </If>
       </form>
