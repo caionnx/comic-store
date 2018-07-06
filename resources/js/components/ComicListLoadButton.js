@@ -6,7 +6,7 @@ import { setSearchParams } from '../actions/filter'
 import { startAddComics } from '../actions/comics'
 import { toggleParcial } from '../actions/fetching'
 
-class ComicListLoadButton extends React.Component {
+export class ComicListLoadButton extends React.Component {
   onLoadMore = (e) => {
     e.preventDefault()
     const {
@@ -52,6 +52,7 @@ class ComicListLoadButton extends React.Component {
           </When>
           <When condition={count + offset < total}>
             <button
+              id='load-more-button'
               className='c-button c-button--primary c-button--full-width'
               onClick={this.onLoadMore}>
               Load more
