@@ -2516,6 +2516,10 @@ dotenv@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-5.0.1.tgz#a5317459bd3d79ab88cff6e44057a6a3fbb1fcef"
 
+drange@^1.0.0:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/drange/-/drange-1.0.2.tgz#a7390ad5869c6f69eabdc42e0a5b516bd100966e"
+
 duplexer3@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
@@ -6378,6 +6382,13 @@ randexp@0.4.6:
     discontinuous-range "1.0.0"
     ret "~0.1.10"
 
+randexp@^0.4.9:
+  version "0.4.9"
+  resolved "https://registry.yarnpkg.com/randexp/-/randexp-0.4.9.tgz#327326358e190c685c2069e1f9b45c5190c517b2"
+  dependencies:
+    drange "^1.0.0"
+    ret "^0.2.0"
+
 randomatic@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-3.0.0.tgz#d35490030eb4f7578de292ce6dfb04a91a128923"
@@ -6844,6 +6855,10 @@ restore-cursor@^2.0.0:
   dependencies:
     onetime "^2.0.0"
     signal-exit "^3.0.2"
+
+ret@^0.2.0:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/ret/-/ret-0.2.2.tgz#b6861782a1f4762dce43402a71eb7a283f44573c"
 
 ret@~0.1.10:
   version "0.1.15"
