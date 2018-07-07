@@ -2,6 +2,7 @@ import { Router, Route, Switch } from 'react-router-dom'
 import React from 'react'
 import createHistory from 'history/createBrowserHistory'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 import NotFoundPage from '../components/NotFoundPage'
 import ComicListPage from '../components/ComicListPage'
 import ComicCartPage from '../components/ComicCartPage'
@@ -12,6 +13,7 @@ export const history = createHistory()
 const defaultView = (renderedComponent) => ([
   <Header key='Header' />,
   renderedComponent,
+  <Footer />,
   <NotificationContainer key='NotificationContainer' />
 ])
 
