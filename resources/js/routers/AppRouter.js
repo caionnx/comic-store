@@ -9,21 +9,19 @@ import { NotificationContainer } from '../components/NotificationContainer'
 
 export const history = createHistory()
 
+const defaultView = (renderedComponent) => ([
+  <Header key='Header' />,
+  renderedComponent,
+  <NotificationContainer key='NotificationContainer' />
+])
+
 export const SwitchRoutes = () => (
   <Switch>
     <Route path='/' component={() =>
-      ([
-        <Header key='Header' />,
-        <ComicListPage key='ComicListPage' />,
-        <NotificationContainer key='NotificationContainer' />
-      ])
+      defaultView(<ComicListPage key='ComicListPage' />)
     } exact />
     <Route path='/cart' component={() =>
-      ([
-        <Header key='Header' />,
-        <ComicCartPage key='ComicCartPage' />,
-        <NotificationContainer key='NotificationContainer' />
-      ])
+      defaultView(<ComicCartPage key='ComicCartPage' />)
     } exact />
     <Route component={NotFoundPage} />
   </Switch>
