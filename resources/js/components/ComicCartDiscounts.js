@@ -10,7 +10,7 @@ export class ComicCartDiscounts extends React.Component {
   }
   discountsTester = [
     {
-      test: /[0-9]\w+([A-Z]{2})/,
+      test: /[0-9]\w{3,5}([A-Z]{2})/,
       value: 10,
       type: 'normal',
       rule: (comic) => !comic.rareIssue
