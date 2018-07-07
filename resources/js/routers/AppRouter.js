@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import NotFoundPage from '../components/NotFoundPage'
 import ComicListPage from '../components/ComicListPage'
 import ComicCartPage from '../components/ComicCartPage'
+import AboutPage from '../components/AboutPage'
 import { NotificationContainer } from '../components/NotificationContainer'
 
 export const history = createHistory()
@@ -24,6 +25,9 @@ export const SwitchRoutes = () => (
     } exact />
     <Route path='/cart' component={() =>
       defaultView(<ComicCartPage key='ComicCartPage' />)
+    } exact />
+    <Route path='/about' component={() =>
+      defaultView(<AboutPage key='AboutPage' />)
     } exact />
     <Route component={() => defaultView(<NotFoundPage key='NotFoundPage' />)} />
   </Switch>
