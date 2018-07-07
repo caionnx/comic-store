@@ -1,9 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 const NotFoundPage = () => (
-  <div>
-    404 - <Link to='/'>Go home</Link>
+  <div className='l-content-container'>
+    <h3>404 - Page Not Found.</h3>
   </div>
 )
 

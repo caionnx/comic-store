@@ -13,7 +13,7 @@ export const history = createHistory()
 const defaultView = (renderedComponent) => ([
   <Header key='Header' />,
   renderedComponent,
-  <Footer />,
+  <Footer key='Footer' />,
   <NotificationContainer key='NotificationContainer' />
 ])
 
@@ -25,7 +25,7 @@ export const SwitchRoutes = () => (
     <Route path='/cart' component={() =>
       defaultView(<ComicCartPage key='ComicCartPage' />)
     } exact />
-    <Route component={NotFoundPage} />
+    <Route component={() => defaultView(<NotFoundPage key='NotFoundPage' />)} />
   </Switch>
 )
 
