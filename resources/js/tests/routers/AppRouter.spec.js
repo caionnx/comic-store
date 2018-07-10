@@ -14,9 +14,10 @@ import ComicListPage from '../../components/ComicListPage'
 jest.mock('react-toastify/dist/ReactToastify.css', () => '')
 
 let SimulateApp
+let store
 const createMockStore = configureMockStore([thunk])
 beforeAll(() => {
-  const store = createMockStore({
+  store = createMockStore({
     comics: [],
     fetching: fetchingReducerDefaultState,
     filter: filterReducerDefaultState,
@@ -31,7 +32,7 @@ beforeAll(() => {
 })
 
 test('should AppRouter contains a router', () => {
-  const wrapper = mount(<AppRouter />)
+  const wrapper = mount(<Provider store={store}><AppRouter /></Provider>)
 
   expect(wrapper.find(Router)).toHaveLength(1)
 })
