@@ -50,7 +50,7 @@ test('Should not apply discount', (done) => {
 
 test('Should apply discount', () => {
   const fakeContainer = document.createElement('div')
-  fakeContainer.innerHTML = '<input id="discount-input" type="text" value="ahe01BA><" />'
+  fakeContainer.innerHTML = '<input id="discount-input" type="text" value="4f8vWOC" />'
   const props = { ...componentProps, cart: [fakeComic] }
   const handleDiscount = jest.spyOn(ComicCartDiscounts.prototype, 'handleDiscount')
   const secondWrapper = shallow(<ComicCartDiscounts {...props} />)
