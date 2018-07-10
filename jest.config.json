@@ -8,6 +8,7 @@
   ],
   "collectCoverageFrom": [
     "resources/js/**/*.{js,jsx}",
+    "!resources/js/tests/setupTests.js",
     "!**/node_modules/**"
   ]
 }
