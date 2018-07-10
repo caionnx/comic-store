@@ -6,8 +6,10 @@
   "author": "Caio Navarro <caionavarro.n@hotmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "node server/server.js",
     "local-server": "webpack-dev-server",
     "test": "jest --config=jest.config.json",
+    "heroku-postbuild": "yarn run build-prod",
     "build-prod": "webpack -p --env production"
   },
   "dependencies": {
@@ -20,8 +22,10 @@
     "babel-polyfill": "6.26.0",
     "babel-preset-env": "1.5.2",
     "babel-preset-react": "6.24.1",
+    "compression": "^1.7.2",
     "css-loader": "^0.28.11",
     "eslint-plugin-jsx-control-statements": "^2.2.1",
+    "express": "^4.16.3",
     "mini-css-extract-plugin": "^0.4.0",
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.2",
